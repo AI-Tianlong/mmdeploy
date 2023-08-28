@@ -32,6 +32,10 @@ onnxruntime:
     backend_test: False
     deploy_config: configs/mmpretrain/classification_onnxruntime_dynamic.py
 
+  pipeline_ort_dynamic_fp16: &pipeline_ort_dynamic_fp16
+    convert_image: *convert_image
+    backend_test: False
+    deploy_config: configs/mmpretrain/classification_onnxruntime-fp16_dynamic.py
 
 tensorrt:
   pipeline_trt_static_fp32: &pipeline_trt_static_fp32
@@ -114,7 +118,7 @@ models:
       - configs/resnet/resnet18_8xb32_in1k.py # TODO Not benchmark config
     pipelines:
       - *pipeline_ts_fp32
-      - *pipeline_ort_dynamic_fp32
+      - *pipeline_ort_dynamic_fp16
 #      - *pipeline_trt_dynamic_fp32
       - *pipeline_trt_dynamic_fp16
 #      - *pipeline_trt_dynamic_int8
@@ -237,3 +241,13 @@ models:
     pipelines:
       - *pipeline_ort_dynamic_fp32
       - *pipeline_trt_dynamic_fp32
+
+  - name: EfficientFormer
+    metafile: configs/efficientformer/metafile.yml
+    model_configs:
+      - configs/efficientformer/efficientformer-l1_8xb128_in1k.py
+    pipelines:
+      - *pipeline_ts_fp32
+      - *pipeline_ort_dynamic_fp32
+      - *pipeline_trt_dynamic_fp32
+      - *pipeline_openvino_dynamic_fp32

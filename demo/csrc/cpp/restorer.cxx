@@ -22,8 +22,18 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
+  mmdeploy::Profiler profiler("/tmp/profile.bin");
+  mmdeploy::Context context;
+  context.Add(mmdeploy::Device(FLAGS_device));
+  context.Add(profiler);
+
   // construct a restorer instance
-  mmdeploy::Restorer restorer{mmdeploy::Model{ARGS_model}, mmdeploy::Device{FLAGS_device}};
+  mmdeploy::Restorer restorer{mmdeploy::Model{ARGS_model}, context};
+
+  // warmup
+  for (int i = 0; i < 20; ++i) {
+    restorer.Apply(img);
+  }
 
   // apply restorer to the image
   mmdeploy::Restorer::Result result = restorer.Apply(img);

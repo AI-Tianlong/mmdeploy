@@ -113,14 +113,14 @@ mim install "mmcv>=2.0.0rc2"
 
 ```shell
 # 1. 安装 MMDeploy 模型转换工具（含trt/ort自定义算子）
-pip install mmdeploy==1.1.0
+pip install mmdeploy==1.2.0
 
 # 2. 安装 MMDeploy SDK推理工具
 # 根据是否需要GPU推理可任选其一进行下载安装
 # 2.1 支持 onnxruntime 推理
-pip install mmdeploy-runtime==1.1.0
+pip install mmdeploy-runtime==1.2.0
 # 2.2 支持 onnxruntime-gpu tensorrt 推理
-pip install mmdeploy-runtime-gpu==1.1.0
+pip install mmdeploy-runtime-gpu==1.2.0
 
 # 3. 安装推理引擎
 # 3.1 安装推理引擎 TensorRT
@@ -223,10 +223,10 @@ result = inference_model(
 你可以直接运行预编译包中的 demo 程序，输入 SDK Model 和图像，进行推理，并查看推理结果。
 
 ```shell
-wget https://github.com/open-mmlab/mmdeploy/releases/download/v1.1.0/mmdeploy-1.1.0-linux-x86_64-cuda11.3.tar.gz
-tar xf mmdeploy-1.1.0-linux-x86_64-cuda11.3
+wget https://github.com/open-mmlab/mmdeploy/releases/download/v1.2.0/mmdeploy-1.2.0-linux-x86_64-cuda11.3.tar.gz
+tar xf mmdeploy-1.2.0-linux-x86_64-cuda11.3
 
-cd mmdeploy-1.1.0-linux-x86_64-cuda11.3
+cd mmdeploy-1.2.0-linux-x86_64-cuda11.3
 # 运行 python demo
 python example/python/object_detection.py cuda ../mmdeploy_model/faster-rcnn ../mmdetection/demo/demo.jpg
 # 运行 C/C++ demo
@@ -303,7 +303,7 @@ int main() {
     const auto& box = dets[i].bbox;
     fprintf(stdout, "box %d, left=%.2f, top=%.2f, right=%.2f, bottom=%.2f, label=%d, score=%.4f\n",
             i, box.left, box.top, box.right, box.bottom, dets[i].label_id, dets[i].score);
-    if (bboxes[i].score < 0.3) {
+    if (dets[i].score < 0.3) {
       continue;
     }
     cv::rectangle(img, cv::Point{(int)box.left, (int)box.top},

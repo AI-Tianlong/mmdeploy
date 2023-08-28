@@ -266,6 +266,9 @@ class ObjectDetection(BaseTask):
             and 'Annotation' not in item['type']
         ]
         for i, transform in enumerate(transforms):
+            # deal with mmyolo
+            if transform['type'].startswith('mmdet.'):
+                transforms[i]['type'] = transform['type'][6:]
             if 'PackDetInputs' in transform['type']:
                 meta_keys += transform[
                     'meta_keys'] if 'meta_keys' in transform else []
@@ -313,6 +316,7 @@ class ObjectDetection(BaseTask):
                 params['mask_thr_binary'] = params['rcnn']['mask_thr_binary']
         if 'mask_thr_binary' in params:
             type = 'ResizeInstanceMask'  # for instance-seg
+            params['is_resize_mask'] = False  # resize and crop mask default
         if get_backend(self.deploy_cfg) == Backend.RKNN:
             if 'YOLO' in self.model_cfg.model.type or \
                'RTMDet' in self.model_cfg.model.type:

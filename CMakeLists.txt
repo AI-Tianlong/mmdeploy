@@ -4,8 +4,12 @@ if (NOT DEFINED CMAKE_INSTALL_PREFIX)
 endif ()
 message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "choose 'Release' as default build type" FORCE)
+endif ()
+
 cmake_minimum_required(VERSION 3.14)
-project(MMDeploy VERSION 1.1.0)
+project(MMDeploy VERSION 1.2.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -34,6 +38,7 @@ option(MMDEPLOY_BUILD_EXAMPLES "build examples" OFF)
 option(MMDEPLOY_SPDLOG_EXTERNAL "use external spdlog" OFF)
 option(MMDEPLOY_ZIP_MODEL "support SDK model in zip format" OFF)
 option(MMDEPLOY_COVERAGE "build SDK for coverage" OFF)
+option(MMDEPLOY_USE_MSCV_STATIC "statically linked CRT" OFF)
 option(MMDEPLOY_ELENA_FUSION "use elena to fuse preprocess" OFF)
 
 set(MMDEPLOY_TARGET_DEVICES "cpu" CACHE STRING "target devices to support")
@@ -42,10 +47,6 @@ set(MMDEPLOY_CODEBASES "all" CACHE STRING "select OpenMMLab codebases")
 
 if ((NOT MMDEPLOY_BUILD_SDK_MONOLITHIC) AND MMDEPLOY_DYNAMIC_BACKEND)
     set(MMDEPLOY_DYNAMIC_BACKEND OFF)
-endif ()
-
-if (NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release CACHE STRING "choose 'Release' as default build type" FORCE)
 endif ()
 
 if (MMDEPLOY_SHARED_LIBS)
@@ -78,6 +79,12 @@ endif ()
 if (MSVC)
     add_compile_options($<$<COMPILE_LANGUAGE:CXX>:/diagnostics:classic>)
     add_compile_options($<$<COMPILE_LANGUAGE:CXX>:/wd4251>)
+    if (MMDEPLOY_USE_MSCV_STATIC)
+        foreach(lang C CXX)
+            string(REPLACE /MD /MT CMAKE_${lang}_FLAGS_DEBUG "${CMAKE_${lang}_FLAGS_DEBUG}")
+            string(REPLACE /MD /MT CMAKE_${lang}_FLAGS_RELEASE "${CMAKE_${lang}_FLAGS_RELEASE}")
+        endforeach()
+    endif ()
 endif ()
 
 if(APPLE)

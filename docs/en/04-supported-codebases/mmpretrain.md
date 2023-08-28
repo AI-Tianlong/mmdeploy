@@ -168,7 +168,7 @@ for label_id, score in result:
     print(label_id, score)
 ```
 
-Besides python API, mmdeploy SDK also provides other FFI (Foreign Function Interface), such as C, C++, C#, Java and so on. You can learn their usage from [demos](https://github.com/open-mmlab/mmdeploy/tree/1.x/demo).
+Besides python API, mmdeploy SDK also provides other FFI (Foreign Function Interface), such as C, C++, C#, Java and so on. You can learn their usage from [demos](https://github.com/open-mmlab/mmdeploy/tree/main/demo).
 
 ## Supported models
 
@@ -181,7 +181,8 @@ Besides python API, mmdeploy SDK also provides other FFI (Foreign Function Inter
 | [ShuffleNetV1](https://github.com/open-mmlab/mmpretrain/tree/main/configs/shufflenet_v1)           |      Y      |      Y       |    Y     |  Y   |   Y   |    Y     |
 | [ShuffleNetV2](https://github.com/open-mmlab/mmpretrain/tree/main/configs/shufflenet_v2)           |      Y      |      Y       |    Y     |  Y   |   Y   |    Y     |
 | [VisionTransformer](https://github.com/open-mmlab/mmpretrain/tree/main/configs/vision_transformer) |      Y      |      Y       |    Y     |  Y   |   ?   |    Y     |
-| [SwinTransformer](https://github.com/open-mmlab/mmpretrain/tree/main/configs/swin_transformer)     |      Y      |      Y       |    Y     |  N   |   ?   |    N     |
-| [MobileOne](https://github.com/open-mmlab/mmpretrain/tree/main/configs/mobileone)                  |      Y      |      Y       |    N     |  N   |   ?   |    N     |
-| [EfficientNet](https://github.com/open-mmlab/mmpretrain/tree/main/configs/efficientnet)            |      Y      |      Y       |    N     |  N   |   ?   |    N     |
-| [Conformer](https://github.com/open-mmlab/mmpretrain/tree/main/configs/conformer)                  |      Y      |      Y       |    N     |  N   |   ?   |    N     |
+| [SwinTransformer](https://github.com/open-mmlab/mmpretrain/tree/main/configs/swin_transformer)     |      Y      |      Y       |    Y     |  N   |   ?   |    Y     |
+| [MobileOne](https://github.com/open-mmlab/mmpretrain/tree/main/configs/mobileone)                  |      Y      |      Y       |    Y     |  Y   |   ?   |    Y     |
+| [EfficientNet](https://github.com/open-mmlab/mmpretrain/tree/main/configs/efficientnet)            |      Y      |      Y       |    Y     |  N   |   ?   |    Y     |
+| [Conformer](https://github.com/open-mmlab/mmpretrain/tree/main/configs/conformer)                  |      Y      |      Y       |    Y     |  N   |   ?   |    Y     |
+| [EfficientFormer](https://github.com/open-mmlab/mmpretrain/tree/main/configs/efficientformer)      |      Y      |      Y       |    Y     |  N   |   ?   |    Y     |
